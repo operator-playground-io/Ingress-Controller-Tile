@@ -204,31 +204,22 @@ helm repo update
 
 Create a manifest nginx-ingress-controller.yaml with the following content:
 
+```
 apiVersion: k8s.nginx.org/v1alpha1
-
 kind: NginxIngressController
-
 metadata:
-
 name: my-nginx-ingress-controller
-
 namespace: default
-
 spec:
-
 type: deployment
-
 image:
-
 repository: nginx/nginx-ingress
-
 tag: 1.9.1
-
 pullPolicy: Always
-
 serviceType: NodePort
-
 nginxPlus: False
+
+```
 
 **Note:** For NGINX Plus, change the image.repository and image.tag values and change nginxPlus to True.
 
@@ -250,35 +241,26 @@ There are several fields to configure the deployment of an Ingress Controller.
 
 The following example shows the minimum configuration using only required fields:
 
-
+```
 apiVersion: k8s.nginx.org/v1alpha1
-
 kind: NginxIngressController
-
 metadata:
-
 name: my-nginx-ingress-controller
-
 namespace: my-nginx-ingress
-
 spec:
-
 type: deployment
-
 image:
-
 repository: nginx/nginx-ingress
-
 tag: edge
-
 pullPolicy: Always
-
 serviceType: NodePort
+
+```
 
 
 The following example shows the usage of all fields (required and optional):
 
-
+```
 apiVersion: k8s.nginx.org/v1alpha1
  kind: NginxIngressController
  metadata:
@@ -324,6 +306,8 @@ apiVersion: k8s.nginx.org/v1alpha1
    nginxReloadTimeout: 5000
    appProtect:
      enable: false
+     
+ ```
 
 
 **Installing the Chart**
