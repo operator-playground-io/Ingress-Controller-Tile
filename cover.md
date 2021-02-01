@@ -6,6 +6,12 @@ Kubernetes Ingress is an API object that provides routing rules to manage extern
 
 Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
 
+An API object that manages external access to the services in a cluster, typically HTTP.
+
+Ingress may provide load balancing, SSL termination and name-based virtual hosting.
+
+
+
 ![Ingress.png](_images/Ingress.png)
 
 **An Ingress provides the following:**
@@ -34,12 +40,15 @@ Layer 4 (L4) refers to the connection level of the OSI network stack—external 
 Ingress Controller is responsible for reading the Ingress Resource information and processing that data accordingly.
 
 The following is a sample Ingress Resource:
+
+
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 spec:
   backend:
     serviceName: ServiceName
     servicePort: <Port Number>
+  
   
 Here is a simple example where an Ingress sends all its traffic to one Service:
 
@@ -49,7 +58,7 @@ An Ingress does not expose arbitrary ports or protocols. Exposing services other
 
 **Prerequisites:**
 
-You must have an Ingress controller to satisfy an Ingress. Only creating an Ingress resource has no effect.
+Ingress controller to satisfy an Ingress. Only creating an Ingress resource has no effect.
 You may need to deploy an Ingress controller such as ingress-nginx. You can choose from a number of Ingress controllers.
 Ideally, all Ingress controllers should fit the reference specification. In reality, the various Ingress controllers operate slightly differently.
 
@@ -57,12 +66,14 @@ As with all other Kubernetes resources, an Ingress needs apiVersion, kind, and m
 
 The Ingress spec has all the information needed to configure a load balancer or proxy server. Most importantly, it contains a list of rules matched against all incoming requests. Ingress resource only supports rules for directing HTTP(S) traffic.
 
+As with all other Kubernetes resources, an Ingress needs apiVersion, kind, and metadata fields. The name of an Ingress object must be a valid DNS subdomain name. For general information about working with config files, see deploying applications, configuring containers, managing resources. Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which is the rewrite-target annotation. Different Ingress controller support different annotations. Review the documentation for your choice of Ingress controller to learn which annotations are supported.
+
+The Ingress spec has all the information needed to configure a load balancer or proxy server. Most importantly, it contains a list of rules matched against all incoming requests. Ingress resource only supports rules for directing HTTP(S) traffic.
 
 
-**What you will learn in this course**
+**Object of the tutorial**
 
 1-How to create and manage Ingress Controller
 
 2-Setting Up an Ingress Controller on a Kubernetes Cluster
 
-3-what happens during an update
