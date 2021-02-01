@@ -1,2 +1,2 @@
 # Ingress-Controller-Tile
-Ingress Controller
+Ingress-Controller
