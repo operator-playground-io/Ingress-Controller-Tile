@@ -1,4 +1,4 @@
-###**What is Kubernetes ingress?**
+**What is Kubernetes ingress?**
 
 Kubernetes ingress is a collection of routing rules that govern how external users access services running in a Kubernetes cluster. However, in real-world Kubernetes deployments, there are frequently additional considerations beyond routing for managing ingress. We’ll discuss these requirements in more detail below.
 
