@@ -12,8 +12,6 @@ Ingress may provide load balancing, SSL termination and name-based virtual hosti
 
 
 
-![Ingress.png](_images/Ingress.png)
-
 **An Ingress provides the following:**
 
 1-Externally reachable URLs for applications deployed in Kubernetes clusters.
