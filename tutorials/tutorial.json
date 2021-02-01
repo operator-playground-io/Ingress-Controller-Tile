@@ -24,6 +24,18 @@
          "title":"Configuration Parameters of ingress-controller Helm Chart Tutorial"
       },
       {
+         "description":" Detailed expalanation of NGINX Ingress Controller",
+         "duration":"15 min",
+         "tutorial_name":"NGINX Ingress Controller.md",
+         "title":"NGINX Ingress Controller"
+      }
+      {
+         "description":" How to Upgrade and Rollback ingress-controller helm chart tutorial",
+         "duration":"15 min",
+         "tutorial_name":"upgrading-and-rollback-igc.md",
+         "title":"Upgrade and Rollback ingress-controller Helm Chart tutorial"
+      }
+      {
          "description":" How to Upgrade and Rollback ingress-controller helm chart tutorial",
          "duration":"15 min",
          "tutorial_name":"upgrading-and-rollback-igc.md",
