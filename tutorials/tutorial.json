@@ -5,42 +5,12 @@
    "footer":"footer.md",
    "tutorials":[
       {
-         "description":" How to verify chart is installed successfully.",
-         "duration":"5 min",
-         "tutorial_name":"verify-ingress-controller-chart-installation.md",
-         "title":"Verify Chart Installation is successful"
-      },
-      {
-         "description":"How to deploy a test client that will execute scripts against the ingress-controller cluster",
-         "duration":"10 min",
-         "tutorial_name":"create-test-client.md",
-         "title":"How to Deploy Test Client for ingress-controller"
-      },
-
-      {
-         "description":" Detail description of Configuration Parameters of ingress-controller Helm Chart",
-         "duration":"5 min",
-         "tutorial_name":"configuration-parameters-of-igc-helm-chart.md",
-         "title":"Configuration Parameters of ingress-controller Helm Chart Tutorial"
-      },
-      {
          "description":" Detailed expalanation of NGINX Ingress Controller",
          "duration":"15 min",
          "tutorial_name":"NGINX Ingress Controller.md",
          "title":"NGINX Ingress Controller"
       }
-      {
-         "description":" How to Upgrade and Rollback ingress-controller helm chart tutorial",
-         "duration":"15 min",
-         "tutorial_name":"upgrading-and-rollback-igc.md",
-         "title":"Upgrade and Rollback ingress-controller Helm Chart tutorial"
-      }
-      {
-         "description":" How to Upgrade and Rollback ingress-controller helm chart tutorial",
-         "duration":"15 min",
-         "tutorial_name":"upgrading-and-rollback-igc.md",
-         "title":"Upgrade and Rollback ingress-controller Helm Chart tutorial"
-      }
+      
       
    ],
    "usefulLinks":[
