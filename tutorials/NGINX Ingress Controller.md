@@ -1,3 +1,124 @@
+###What is Kubernetes ingress?
+
+Kubernetes ingress is a collection of routing rules that govern how external users access services running in a Kubernetes cluster. However, in real-world Kubernetes deployments, there are frequently additional considerations beyond routing for managing ingress. We’ll discuss these requirements in more detail below.
+
+
+**Ingress in Kubernetes**
+
+In Kubernetes, there are three general approaches to exposing your application.
+
+1-Using a Kubernetes service of type NodePort, which exposes the application on a port across each of your nodes
+
+2-Use a Kubernetes service of type LoadBalancer, which creates an external load balancer that points to a Kubernetes service in your cluster
+
+3-Use a Kubernetes Ingress Resource
+
+
+**NodePort**
+
+A NodePort is an open port on every node of your cluster. Kubernetes transparently routes incoming traffic on the NodePort to your service, even if your application is running on a different node.
+
+
+Every Kubernetes cluster supports NodePort, although if you’re running in a cloud provider such as Google Cloud, you may have to edit your firewall rules. However, a NodePort is assigned from a pool of cluster-configured NodePort ranges (typically 30000–32767). While this is likely not a problem for most TCP or UDP clients, HTTP or HTTPS traffic end up being exposed on a non-standard port.
+
+
+The NodePort abstraction is intended to be a building block for higher-level ingress models (e.g., load balancers). It is handy for development purposes, however, when you don’t need a production URL.
+
+**Load Balancer**
+
+Using a LoadBalancer service type automatically deploys an external load balancer. This external load balancer is associated with a specific IP address and routes external traffic to a Kubernetes service in your cluster.
+
+
+The exact implementation of a LoadBalancer is dependent on your cloud provider, and not all cloud providers support the LoadBalancer service type. Moreover, if you’re deploying Kubernetes on bare metal, you’ll have to supply your own load balancer implementation. That said, if you’re in an environment that supports the LoadBalancer service type, this is likely the safest, simplest way to route your traffic.Ingress Controllers and Ingress Resources
+
+**Ingress Controllers and Ingress Resources**
+
+Kubernetes supports a high level abstraction called Ingress, which allows simple host or URL based HTTP routing. An ingress is a core concept (in beta) of Kubernetes, but is always implemented by a third party proxy. These implementations are known as ingress controllers. An ingress controller is responsible for reading the Ingress Resource information and processing that data accordingly. Different ingress controllers have extended the specification in different ways to support additional use cases.
+
+
+Ingress is tightly integrated into Kubernetes, meaning that your existing workflows around kubectl will likely extend nicely to managing ingress. Note that an ingress controller typically doesn’t eliminate the need for an external load balancer — the ingress controller simply adds an additional layer of routing and control behind the load balancer.
+
+**Service-specific ingress management**
+
+So the question for your ingress strategy is really about choosing the right way to manage traffic from your external load balancer to your services. What are your options?
+
+
+You can choose an ingress controller such as ingress-nginx or NGINX kubernetes-ingress
+
+You can choose an API Gateway deployed as a Kubernetes service such as Ambassador (built on Envoy) or Traefik.
+
+You can deploy your own using a custom configuration of NGINX, HAProxy, or Envoy.
+
+
+**Lets Enable the Ingress controller**
+
+1-To enable the NGINX Ingress controller, run the following command:
+
+```
+minikube addons enable ingress
+```
+
+2-Verify that the NGINX Ingress controller is running
+
+```
+kubectl get pods -n kube-system
+```
+**Note:** This can take up to a minute.
+
+Output:
+
+```
+NAME                                        READY     STATUS    RESTARTS   AGE
+default-http-backend-59868b7dd6-xb8tq       1/1       Running   0          1m
+kube-addon-manager-minikube                 1/1       Running   0          3m
+kube-dns-6dcb57bcc8-n4xd4                   3/3       Running   0          2m
+kubernetes-dashboard-5498ccf677-b8p5h       1/1       Running   0          2m
+nginx-ingress-controller-5984b97644-rnkrg   1/1       Running   0          1m
+storage-provisioner                         1/1       Running   0          2m
+
+```
+
+**Lets Deploy a hello, world app**
+
+1-Create a Deployment using the following command:
+
+```
+kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
+```
+Output:
+
+```
+deployment.apps/web created
+```
+
+2-Expose the Deployment:
+
+```
+kubectl expose deployment web --type=NodePort --port=8080
+```
+Output:
+
+```
+service/web exposed
+```
+
+3-Verify the Service is created and is available on a node port:
+```
+kubectl get service web
+```
+Output:
+
+```
+NAME      TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+web       NodePort   169.62.52.103   <none>        8080:31637/TCP   12m
+
+```
+4-Visit the service via NodePort:
+
+```
+minikube service web --url
+```
+
 ###NGINX Ingress Controller
 
 This repo provides an implementation of an Ingress controller for NGINX and NGINX Plus.
@@ -182,8 +303,6 @@ apiVersion: k8s.nginx.org/v1alpha1
      enable: false
 
 
-
-
 **Installing the Chart**
 
 By default, the Ingress Controller requires a number of custom resource definitions (CRDs) installed in the cluster. The Helm client will install those CRDs.
@@ -290,28 +409,3 @@ Considering the options above, you can run multiple NGINX Ingress Controllers, e
 It is possible to run NGINX Ingress Controller and an Ingress Controller for another load balancer in the same cluster. This is often the case if you create your cluster through a cloud provider managed Kubernetes service that by default might include the Ingress Controller for the HTTP load balancer of the cloud provider, and you want to use NGINX Ingress Controller.
 
 To make sure that NGINX Ingress Controller handles particular configuration resources, update those resources with the class set to nginx or the value that you configured.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
